@@ -1,0 +1,5 @@
+.aptos
+node_modules
+
+build/
+move/*/*.json
