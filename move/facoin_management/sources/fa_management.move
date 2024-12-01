@@ -32,9 +32,8 @@ module FacoinManagementAddr::facoinManagement {
     primary_fungible_store::transfer<Metadata>(from, fa_metadata_address, to, amount);
   }
 
-  public entry fun unstaking(account: &signer, poolId: u64, amount: u64, fa_metadata_address: Object<Metadata>) acquires PoolRef {
+  public entry fun unstaking(account: &signer, pool_object_addr: address, amount: u64, fa_metadata_address: Object<Metadata>) acquires PoolRef {
     let caller_address = signer::address_of(account);
-    let pool_object_addr = get_object(caller_address, poolId);
     let pool_ref = borrow_global<PoolRef>(pool_object_addr);
 
     let object_signer = object::generate_signer_for_extending(&pool_ref.extend_ref);
@@ -59,22 +58,4 @@ module FacoinManagementAddr::facoinManagement {
   public fun get_test0(creator: address): address {
     creator
   }
-
-  // public entry fun staking(
-  //   from: &signer,
-  //   metadataAddress: object::Object<Metadata>,
-  //   to: address,
-  //   amount: u64
-  // ) {
-  //   // primary_fungible_store::transfer<Metadata>(from, metadataAddress, from.address, amount);
-  // }
-
-  // public entry fun staking(
-  //   from: &signer,
-  //   metadataAddress: object::Object<Metadata>,
-  //   to: address,
-  //   amount: u64
-  // ) {
-  //   primary_fungible_store::transfer<Metadata>(from, metadataAddress, to, amount);
-  // }
 }
